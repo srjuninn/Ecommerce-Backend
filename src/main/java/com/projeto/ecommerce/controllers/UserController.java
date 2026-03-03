@@ -26,6 +26,10 @@ public class UserController {
         UserResponse response = userService.getUserById(id);
         return ResponseEntity.ok(response);
     }
-
+    @PutMapping("/update/id/{id}")
+    public ResponseEntity <UserResponse> updateUserById(@PathVariable Long id, @RequestBody UserRequest userReq){
+        UserResponse updatedUser = userService.updateUserById(id, userReq);
+        return ResponseEntity.ok(updatedUser);
+    }
 
 }

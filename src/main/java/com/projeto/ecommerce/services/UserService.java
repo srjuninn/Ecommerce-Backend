@@ -36,6 +36,19 @@ public class UserService {
         return new UserResponse(user.getName(), user.getEmail(), user.getPhone());
     }
 
-
+    public UserResponse updateUserById(Long id, UserRequest userReq) {
+//      metodo do Jpa repository que retorna um optional(podendo estar vazio ou com objeto)
+        UserEntity userEntity = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("não existe um usuário com esse id"));
+//      atualiza o usuario com id passado
+        userEntity.setName(userReq.getName());
+        userEntity.setEmail(userReq.getEmail());
+        userEntity.setPhone(userReq.getPhone());
+        userEntity.setPassword(userReq.getPassword());
+        userEntity.setRoles(userReq.getRoles());
+//      salva como novo usuario
+        UserEntity updatedUser = userRepository.save(userEntity);
+//      retorna o response
+        return new UserResponse(updatedUser.getName(), updatedUser.getEmail(), updatedUser.getPhone());
+    }
 
 }
