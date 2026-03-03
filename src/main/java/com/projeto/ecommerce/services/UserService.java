@@ -50,5 +50,8 @@ public class UserService {
 //      retorna o response
         return new UserResponse(updatedUser.getName(), updatedUser.getEmail(), updatedUser.getPhone());
     }
-
+    public void deleteUserById(Long id){
+        userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("não existe um usuário com esse id"));
+        userRepository.deleteById(id);
+    }
 }
