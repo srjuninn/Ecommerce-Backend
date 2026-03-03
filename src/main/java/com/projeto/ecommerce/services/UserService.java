@@ -2,8 +2,8 @@ package com.projeto.ecommerce.services;
 
 import com.projeto.ecommerce.entities.UserEntity;
 import com.projeto.ecommerce.repositories.UserRepository;
-import com.projeto.ecommerce.requests.UserRequest;
-import com.projeto.ecommerce.responses.UserResponse;
+import com.projeto.ecommerce.requests.UserRequestDTO;
+import com.projeto.ecommerce.responses.UserResponseDTO;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public UserResponse createUser(UserRequest userReq) {
+    public UserResponseDTO createUser(UserRequestDTO userReq) {
         if (userReq == null) {
             throw new IllegalArgumentException("os dados inseridos são inválidos");
         }
@@ -26,17 +26,17 @@ public class UserService {
         }
         UserEntity newUser = new UserEntity(userReq.getName(), userReq.getEmail(), userReq.getPhone(), userReq.getPassword(), userReq.getRoles());
         userRepository.save(newUser);
-        return new UserResponse(newUser.getName(), newUser.getEmail(), newUser.getPhone());
+        return new UserResponseDTO(newUser.getName(), newUser.getEmail(), newUser.getPhone());
     }
 
-    public UserResponse getUserById(Long id) {
+    public UserResponseDTO getUserById(Long id) {
         UserEntity user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com id: " + id));
 
-        return new UserResponse(user.getName(), user.getEmail(), user.getPhone());
+        return new UserResponseDTO(user.getName(), user.getEmail(), user.getPhone());
     }
 
-    public UserResponse updateUserById(Long id, UserRequest userReq) {
+    public UserResponseDTO updateUserById(Long id, UserRequestDTO userReq) {
 //      metodo do Jpa repository que retorna um optional(podendo estar vazio ou com objeto)
         UserEntity userEntity = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("não existe um usuário com esse id"));
 //      atualiza o usuario com id passado
@@ -48,7 +48,7 @@ public class UserService {
 //      salva como novo usuario
         UserEntity updatedUser = userRepository.save(userEntity);
 //      retorna o response
-        return new UserResponse(updatedUser.getName(), updatedUser.getEmail(), updatedUser.getPhone());
+        return new UserResponseDTO(updatedUser.getName(), updatedUser.getEmail(), updatedUser.getPhone());
     }
     public void deleteUserById(Long id){
         userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("não existe um usuário com esse id"));

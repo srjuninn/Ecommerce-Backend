@@ -1,7 +1,7 @@
 package com.projeto.ecommerce.controllers;
 
-import com.projeto.ecommerce.requests.UserRequest;
-import com.projeto.ecommerce.responses.UserResponse;
+import com.projeto.ecommerce.requests.UserRequestDTO;
+import com.projeto.ecommerce.responses.UserResponseDTO;
 import com.projeto.ecommerce.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -17,18 +17,18 @@ public class UserController {
     }
 
     @PostMapping("create")
-    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserRequest userReq){
-        UserResponse userRes = userService.createUser(userReq);
+    public ResponseEntity<UserResponseDTO> createUser(@Valid @RequestBody UserRequestDTO userReq){
+        UserResponseDTO userRes = userService.createUser(userReq);
         return ResponseEntity.ok(userRes);
     }
     @GetMapping("/show/{id}")
-    public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
-        UserResponse response = userService.getUserById(id);
+    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable Long id) {
+        UserResponseDTO response = userService.getUserById(id);
         return ResponseEntity.ok(response);
     }
     @PutMapping("/update/id/{id}")
-    public ResponseEntity <UserResponse> updateUserById(@PathVariable Long id, @RequestBody UserRequest userReq){
-        UserResponse updatedUser = userService.updateUserById(id, userReq);
+    public ResponseEntity <UserResponseDTO> updateUserById(@PathVariable Long id, @RequestBody UserRequestDTO userReq){
+        UserResponseDTO updatedUser = userService.updateUserById(id, userReq);
         return ResponseEntity.ok(updatedUser);
     }
     @DeleteMapping("/delete/id/{id}")
