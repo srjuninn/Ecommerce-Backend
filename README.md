@@ -1,4 +1,3 @@
-
 ---
 
 # 📦 Ecommerce Backend
@@ -22,18 +21,22 @@ src/main/java/com/projeto/ecommerce
 ├── controllers        # Controllers (camada de entrada da API)
 ├── entities           # Entidades JPA (representam tabelas do banco)
 ├── repositories       # Interfaces de acesso ao banco (JpaRepository)
-├── requests           # DTOs de entrada (UserRequestDTO)
-├── responses          # DTOs de saída (UserResponseDTO)
-└── services           # Regras de negócio (UserService)
+├── requests           # DTOs de entrada (UserRequestDTO, ProductRequestDTO)
+├── responses          # DTOs de saída (UserResponseDTO, ProductResponseDTO)
+└── services           # Regras de negócio (UserService, ProductService)
 ```
+
+---
 
 ## 🔑 Endpoints disponíveis
 
-### 1. Criar usuário
+### 👤 Usuários
+
+#### 1. Criar usuário
 ```http
 POST /user/create
 ```
-**Body (JSON):**
+**Body:**
 ```json
 {
   "name": "João Silva",
@@ -44,47 +47,29 @@ POST /user/create
 }
 ```
 
-### 2. Buscar usuário por ID
+#### 2. Buscar usuário por ID
 ```http
 GET /user/show/{id}
 ```
-**Response:**
-```json
-{
-  "id": 1,
-  "name": "João Silva",
-  "email": "joao@email.com",
-  "phone": "11999999999"
-}
-```
 
-### 3. Atualizar usuário
+#### 3. Atualizar usuário
 ```http
 PUT /user/update/id/{id}
 ```
-**Body (JSON):**
-```json
-{
-  "name": "Maria Oliveira",
-  "email": "maria@email.com",
-  "phone": "11988887777",
-  "password": "novaSenha123",
-  "roles": "ADMIN"
-}
-```
 
-### 4. Deletar usuário
+#### 4. Deletar usuário
 ```http
 DELETE /user/delete/id/{id}
 ```
-**Response:**
-```json
-"usuário deletado com sucesso!"
+
+---
+
+### 🛒 Produtos
+
+#### 1. Criar produto
+```http
+POST /products/create
 ```
-
-### 🌐1. Criar Produto
-`POST /products/create`
-
 **Body:**
 ```json
 {
@@ -95,34 +80,15 @@ DELETE /user/delete/id/{id}
 }
 ```
 
-**Resposta:**
-```json
-{
-  "name": "Notebook Gamer",
-  "description": "RTX 4060, 16GB RAM",
-  "price": 5999.90
-}
+#### 2. Buscar produto por ID
+```http
+GET /products/show/id/{id}
 ```
 
----
-
-### 2. Consultar Produto por ID
-`GET /products/show/id/{id}`
-
-**Resposta:**
-```json
-{
-  "name": "Notebook Gamer",
-  "description": "RTX 4060, 16GB RAM",
-  "price": 5999.90
-}
+#### 3. Atualizar produto
+```http
+PUT /products/update/id/{id}
 ```
-
----
-
-### 3. Atualizar Produto
-`PUT /products/update/id/{id}`
-
 **Body:**
 ```json
 {
@@ -133,28 +99,12 @@ DELETE /user/delete/id/{id}
 }
 ```
 
-**Resposta:**
-```json
-{
-  "name": "Notebook Gamer Atualizado",
-  "description": "RTX 4070, 32GB RAM",
-  "price": 7999.90
-}
+#### 4. Deletar produto
+```http
+DELETE /products/delete/id/{id}
 ```
 
 ---
-
-### 4. Deletar Produto
-`DELETE /products/delete/id/{id}`
-
-**Resposta:**
-```json
-{
-  "message": "produto deletado com sucesso!"
-}
-```
-
-
 
 ## ⚙️ Como rodar o projeto
 1. Clone o repositório:
@@ -174,24 +124,16 @@ DELETE /user/delete/id/{id}
    http://localhost:8080
    ```
 
-Ou, se preferir, abra o projeto no **IntelliJ IDEA**, rode a classe `EcommerceApplication` e teste os endpoints no **Postman** ou **Insomnia**.
+Ou abra no **IntelliJ IDEA**, rode a classe `EcommerceApplication` e teste os endpoints no **Postman** ou **Insomnia**.
 
 ---
 
 ## 🛡️ Tratamento de erros
 A API retorna mensagens claras em caso de erro:
-- **404 Not Found** → Usuário não encontrado.
-- **409 Conflict** → Email já cadastrado.
+- **404 Not Found** → Usuário ou produto não encontrado.
+- **409 Conflict** → Email ou nome de produto já cadastrado.
 - **400 Bad Request** → Dados inválidos.
 
-Exemplo de resposta de erro:
-```json
-{
-  "error": "Usuário não encontrado com id: 99"
-}
-```
-
----
 
 ## 📌 Próximos passos
 - Implementar autenticação e autorização (Spring Security + JWT).
