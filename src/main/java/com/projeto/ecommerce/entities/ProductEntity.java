@@ -1,6 +1,7 @@
 package com.projeto.ecommerce.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,10 +19,10 @@ import java.util.UUID;
 public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private Long id;
     private String name;
     private String description;
-    private double price;
+    private Double price;
     private String imgURL;
 
     @ManyToMany
@@ -29,4 +30,12 @@ public class ProductEntity {
             joinColumns = @JoinColumn(name = "produto_id"),
             inverseJoinColumns = @JoinColumn(name = "categoria_id"))
     private Set<CategoryEntity> categories = new HashSet<>();
+
+    public ProductEntity(String name, String description, Double price, String imgURL) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.imgURL = imgURL;
+
+    }
 }
