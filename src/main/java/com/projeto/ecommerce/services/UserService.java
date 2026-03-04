@@ -8,6 +8,8 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 
 @Service
 public class UserService {
@@ -26,17 +28,17 @@ public class UserService {
         }
         UserEntity newUser = new UserEntity(userReq.getName(), userReq.getEmail(), userReq.getPhone(), userReq.getPassword(), userReq.getRoles());
         userRepository.save(newUser);
-        return new UserResponseDTO(newUser.getName(), newUser.getEmail(), newUser.getPhone());
+        return new UserResponseDTO(newUser.getId(),newUser.getName(), newUser.getEmail(), newUser.getPhone());
     }
 
-    public UserResponseDTO getUserById(Long id) {
+    public UserResponseDTO getUserById(UUID id) {
         UserEntity user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com id: " + id));
 
-        return new UserResponseDTO(user.getName(), user.getEmail(), user.getPhone());
+        return new UserResponseDTO(user.getId(),user.getName(), user.getEmail(), user.getPhone());
     }
 
-    public UserResponseDTO updateUserById(Long id, UserRequestDTO userReq) {
+    public UserResponseDTO updateUserById(UUID id, UserRequestDTO userReq) {
 //      metodo do Jpa repository que retorna um optional(podendo estar vazio ou com objeto)
         UserEntity userEntity = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("não existe um usuário com esse id"));
 //      atualiza o usuario com id passado
@@ -48,9 +50,9 @@ public class UserService {
 //      salva como novo usuario
         UserEntity updatedUser = userRepository.save(userEntity);
 //      retorna o response
-        return new UserResponseDTO(updatedUser.getName(), updatedUser.getEmail(), updatedUser.getPhone());
+        return new UserResponseDTO(updatedUser.getId(),updatedUser.getName(), updatedUser.getEmail(), updatedUser.getPhone());
     }
-    public void deleteUserById(Long id){
+    public void deleteUserById(UUID id){
         userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("não existe um usuário com esse id"));
         userRepository.deleteById(id);
     }
