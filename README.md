@@ -82,6 +82,80 @@ DELETE /user/delete/id/{id}
 "usuário deletado com sucesso!"
 ```
 
+### 🌐1. Criar Produto
+`POST /products/create`
+
+**Body:**
+```json
+{
+  "name": "Notebook Gamer",
+  "description": "RTX 4060, 16GB RAM",
+  "price": 5999.90,
+  "imgURL": "http://imagem.com/notebook.png"
+}
+```
+
+**Resposta:**
+```json
+{
+  "name": "Notebook Gamer",
+  "description": "RTX 4060, 16GB RAM",
+  "price": 5999.90
+}
+```
+
+---
+
+### 2. Consultar Produto por ID
+`GET /products/show/id/{id}`
+
+**Resposta:**
+```json
+{
+  "name": "Notebook Gamer",
+  "description": "RTX 4060, 16GB RAM",
+  "price": 5999.90
+}
+```
+
+---
+
+### 3. Atualizar Produto
+`PUT /products/update/id/{id}`
+
+**Body:**
+```json
+{
+  "name": "Notebook Gamer Atualizado",
+  "description": "RTX 4070, 32GB RAM",
+  "price": 7999.90,
+  "imgURL": "http://imagem.com/notebook2.png"
+}
+```
+
+**Resposta:**
+```json
+{
+  "name": "Notebook Gamer Atualizado",
+  "description": "RTX 4070, 32GB RAM",
+  "price": 7999.90
+}
+```
+
+---
+
+### 4. Deletar Produto
+`DELETE /products/delete/id/{id}`
+
+**Resposta:**
+```json
+{
+  "message": "produto deletado com sucesso!"
+}
+```
+
+
+
 ## ⚙️ Como rodar o projeto
 1. Clone o repositório:
    ```bash
@@ -121,7 +195,7 @@ Exemplo de resposta de erro:
 
 ## 📌 Próximos passos
 - Implementar autenticação e autorização (Spring Security + JWT).
-- Criar endpoints para produtos e pedidos.
+- Criar endpoints para pedidos.
 - Documentar a API com Swagger/OpenAPI.
 
 ---
