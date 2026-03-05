@@ -1,5 +1,7 @@
 package com.projeto.ecommerce.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.projeto.ecommerce.enums.StatusDoPedido;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -22,6 +24,7 @@ public class OrderEntity {
     @ManyToOne
 //  define qual coluna será usada como chave estrangeira na tabela
     @JoinColumn(name  = "cliente_id")
+    @JsonIgnore
     private UserEntity client;
 
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)

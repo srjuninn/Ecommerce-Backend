@@ -17,7 +17,8 @@ public class OrderResponseDTO {
     private LocalDateTime moment;
     private StatusDoPedido status;
 
-    public OrderResponseDTO(UserEntity client, StatusDoPedido status, LocalDateTime moment) {
+    public OrderResponseDTO(UUID id,UserEntity client, StatusDoPedido status, LocalDateTime moment) {
+        this.id = id;
         this.client = client;
         this.status = status;
         this.moment = moment;

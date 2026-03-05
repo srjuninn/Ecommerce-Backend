@@ -9,6 +9,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ProductService {
@@ -31,12 +32,12 @@ public class ProductService {
         return new ProductResponseDTO(newProd.getName(), newProd.getDescription(), newProd.getPrice());
     }
 
-    public ProductResponseDTO showProductById(Long id){
+    public ProductResponseDTO showProductById(UUID id){
         ProductEntity prod = productRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("não existe um produto com esse id: " + id));
         return new ProductResponseDTO(prod.getName(), prod.getDescription(), prod.getPrice());
     }
 
-    public ProductResponseDTO updateProduct(Long id, ProductRequestDTO proReq){
+    public ProductResponseDTO updateProduct(UUID id, ProductRequestDTO proReq){
         ProductEntity productEntity = productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("não existe um usuário com esse id"));
 
         productEntity.setName(proReq.getName());
@@ -49,7 +50,7 @@ public class ProductService {
         return new ProductResponseDTO(updatedProduct.getName(), updatedProduct.getDescription(), updatedProduct.getPrice());
     }
 
-    public void deleteProduct(Long id){
+    public void deleteProduct(UUID id){
         productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("não existe um produto com esse id"));
         productRepository.deleteById(id);
     }

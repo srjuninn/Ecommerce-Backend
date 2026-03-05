@@ -7,6 +7,8 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("products")
 public class ProductController {
@@ -20,17 +22,17 @@ public class ProductController {
         return ResponseEntity.ok(prodRes);
     }
     @GetMapping("/show/id/{id}")
-    public ResponseEntity<ProductResponseDTO> showById(@PathVariable Long id){
+    public ResponseEntity<ProductResponseDTO> showById(@PathVariable UUID id){
         ProductResponseDTO productDTO = productService.showProductById(id);
         return ResponseEntity.ok(productDTO);
     }
     @PutMapping("/update/id/{id}")
-    public ResponseEntity<ProductResponseDTO> updateProduct(@Valid @PathVariable Long id, @RequestBody ProductRequestDTO prodReq){
+    public ResponseEntity<ProductResponseDTO> updateProduct(@Valid @PathVariable UUID id, @RequestBody ProductRequestDTO prodReq){
         ProductResponseDTO updatedProduct = productService.updateProduct(id, prodReq);
         return ResponseEntity.ok(updatedProduct);
     }
     @DeleteMapping("/delete/id/{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable Long id){
+    public ResponseEntity<String> deleteProduct(@PathVariable UUID id){
         productService.deleteProduct(id);
         return ResponseEntity.ok("produto deletado com sucesso!");
     }

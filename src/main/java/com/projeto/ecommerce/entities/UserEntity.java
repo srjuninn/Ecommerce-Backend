@@ -1,5 +1,7 @@
 package com.projeto.ecommerce.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.projeto.ecommerce.enums.RoleEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -32,6 +34,7 @@ public class UserEntity {
     //  Anotation pra falar que é uma relaçao 1 para muitos baseado na chave estrangeira client
     @OneToMany(mappedBy = "client")
 //  Criando uma lista pra mostrar todos os pedidos dos Usuários
+    @JsonIgnore
     private List<OrderEntity> orders = new ArrayList<>();
 
     public UserEntity(String name, String email, String phone, String password, RoleEnum roles) {

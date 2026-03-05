@@ -24,13 +24,11 @@ public class OrderService {
         this.userRepository = userRepository;
     }
 
-    public OrderResponseDTO createOrder(UUID id, OrderRequestDTO orderReq, UserRequestDTO userReq) {
-        if (orderReq == null || userReq == null) {
+    public OrderResponseDTO createOrder(OrderRequestDTO orderReq) {
+        if (orderReq == null) {
             throw new IllegalArgumentException("os dados inseridos são inválidos!");
         }
-        if (orderRepository.findById(id).isPresent()) {
-            throw new IllegalArgumentException("esse pedido já existe");
-        }
+
         OrderEntity newOrder = new OrderEntity();
         newOrder.setStatus(StatusDoPedido.AWAITING_PAYMENT);
         newOrder.setMoment(LocalDateTime.now());
@@ -42,7 +40,7 @@ public class OrderService {
 
         OrderEntity savedOrder = orderRepository.save(newOrder);
 
-        return new OrderResponseDTO(savedOrder.getClient(), savedOrder.getStatus(), savedOrder.getMoment());
+        return new OrderResponseDTO(savedOrder.getId(),savedOrder.getClient(), savedOrder.getStatus(), savedOrder.getMoment());
     }
 
 }
