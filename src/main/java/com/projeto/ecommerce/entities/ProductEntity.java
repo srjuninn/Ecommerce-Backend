@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -25,12 +26,6 @@ public class ProductEntity {
     private Double price;
     private String imgURL;
 
-    @ManyToMany
-    @JoinTable(name = "product_category",
-            joinColumns = @JoinColumn(name = "produto_id"),
-            inverseJoinColumns = @JoinColumn(name = "categoria_id"))
-    private Set<CategoryEntity> categories = new HashSet<>();
-
     public ProductEntity(String name, String description, Double price, String imgURL) {
         this.name = name;
         this.description = description;
@@ -38,4 +33,21 @@ public class ProductEntity {
         this.imgURL = imgURL;
 
     }
-}
+
+//    Relacionamentos
+//    Produto -> categoria
+    @ManyToMany
+    @JoinTable(name = "product_category",
+            joinColumns = @JoinColumn(name = "produto_id"),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+    private Set<CategoryEntity> categories = new HashSet<>();
+    //    Pedidos -> item do pedido
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItemEntity> items = new HashSet<>();
+    public Set<OrderItemEntity> getItems(){
+        return items;
+    }
+    public List<OrderEntity> getOrder(){
+        return items.stream().map(x -> x.getOrder()).toList();
+    }
+ }
