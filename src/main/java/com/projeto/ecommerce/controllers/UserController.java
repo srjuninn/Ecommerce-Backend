@@ -28,12 +28,12 @@ public class UserController {
         UserResponseDTO response = userService.getUserById(id);
         return ResponseEntity.ok(response);
     }
-    @PutMapping("/update/id/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity <UserResponseDTO> updateUserById(@PathVariable UUID id, @RequestBody UserRequestDTO userReq){
         UserResponseDTO updatedUser = userService.updateUserById(id, userReq);
         return ResponseEntity.ok(updatedUser);
     }
-    @DeleteMapping("/delete/id/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteUserById(@PathVariable UUID id){
         userService.deleteUserById(id);
         return ResponseEntity.ok("usuário deletado com sucesso!");

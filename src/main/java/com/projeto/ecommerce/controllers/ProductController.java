@@ -21,17 +21,17 @@ public class ProductController {
         ProductResponseDTO prodRes =  productService.createProduct(prodReq);
         return ResponseEntity.ok(prodRes);
     }
-    @GetMapping("/show/id/{id}")
+    @GetMapping("/show/{id}")
     public ResponseEntity<ProductResponseDTO> showById(@PathVariable UUID id){
         ProductResponseDTO productDTO = productService.showProductById(id);
         return ResponseEntity.ok(productDTO);
     }
-    @PutMapping("/update/id/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<ProductResponseDTO> updateProduct(@Valid @PathVariable UUID id, @RequestBody ProductRequestDTO prodReq){
         ProductResponseDTO updatedProduct = productService.updateProduct(id, prodReq);
         return ResponseEntity.ok(updatedProduct);
     }
-    @DeleteMapping("/delete/id/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable UUID id){
         productService.deleteProduct(id);
         return ResponseEntity.ok("produto deletado com sucesso!");
