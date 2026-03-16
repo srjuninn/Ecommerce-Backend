@@ -44,4 +44,10 @@ public class OrderController {
         return ResponseEntity.ok(orderRes);
     }
 
+    // Deletar pedido
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteOrderById(@PathVariable UUID id) {
+        orderService.deleteOrderById(id);
+        return ResponseEntity.ok("usuário deletado com sucesso!");
+    }
 }
