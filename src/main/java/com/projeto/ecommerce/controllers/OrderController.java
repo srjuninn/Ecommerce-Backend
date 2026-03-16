@@ -35,4 +35,13 @@ public class OrderController {
         return ResponseEntity.ok(orderRes);
     }
 
+    // Atualizar status do pedido
+    @PutMapping("/update/{id}")
+    public ResponseEntity<OrderResponseDTO> updateOrderStatus(@PathVariable UUID id,
+                                                              @RequestBody Map<String, String> body) {
+        StatusDoPedido status = StatusDoPedido.valueOf(body.get("status"));
+        OrderResponseDTO orderRes = orderService.updateOrderStatus(id, status);
+        return ResponseEntity.ok(orderRes);
+    }
+
 }
