@@ -110,4 +110,10 @@ public class OrderService {
         return new OrderResponseDTO(updatedOrder.getId(), clientDTO, updatedOrder.getMoment(), updatedOrder.getStatus(), itemResponses);
     }
 
+    // Deletar pedido
+    public void deleteOrderById(UUID id) {
+        orderRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("pedido não encontrado"));
+        orderRepository.deleteById(id);
+    }
 }
