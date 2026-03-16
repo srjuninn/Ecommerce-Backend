@@ -88,6 +88,26 @@ public class OrderService {
 
         return new OrderResponseDTO(order.getId(), clientDTO, order.getMoment(), order.getStatus(), itemResponses);
     }
+    // Atualizar status do pedido
+    public OrderResponseDTO updateOrderStatus(UUID id, StatusDoPedido status) {
+        OrderEntity order = orderRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("pedido não encontrado"));
 
+        order.setStatus(status);
+        OrderEntity updatedOrder = orderRepository.save(order);
+
+        UserResponseDTO clientDTO = new UserResponseDTO(updatedOrder.getClient());
+
+        List<OrderItemResponseDTO> itemResponses = updatedOrder.getItems().stream()
+                .map(item -> new OrderItemResponseDTO(
+                        item.getProduct().getId(),
+                        item.getProduct().getName(),
+                        item.getQuantity(),
+                        item.getPrice()
+                ))
+                .toList();
+
+        return new OrderResponseDTO(updatedOrder.getId(), clientDTO, updatedOrder.getMoment(), updatedOrder.getStatus(), itemResponses);
+    }
 
 }
