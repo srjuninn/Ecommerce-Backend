@@ -61,12 +61,33 @@ public class OrderService {
             OrderItemEntity orderItem = new OrderItemEntity(savedOrder, product, itemReq.getQuantity(), product.getPrice());
             orderItemRepository.save(orderItem);
 //            fazer o metodo de lista de items
-//            itemResponses.add(new OrderItemResponseDTO(product.getId(), product.getName(), itemReq.getQuantity(), product.getPrice()));
+            orderResponse.add(new OrderItemResponseDTO(
+                    product.getId(),
+                    product.getName(),
+                    itemReq.getQuantity(),
+                    product.getPrice()));
         }
 
-
         UserResponseDTO dto = new UserResponseDTO(client);
-        return new OrderResponseDTO(savedOrder.getId(),dto, savedOrder.getStatus(), savedOrder.getMoment());
+        return new OrderResponseDTO(savedOrder.getId(),dto,  savedOrder.getMoment(), savedOrder.getStatus(), orderResponse);
     }
+    public OrderResponseDTO getOrderById(UUID id) {
+        OrderEntity order = orderRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("pedido não encontrado"));
+
+        UserResponseDTO clientDTO = new UserResponseDTO(order.getClient());
+
+        List<OrderItemResponseDTO> itemResponses = order.getItems().stream()
+                .map(item -> new OrderItemResponseDTO(
+                        item.getProduct().getId(),
+                        item.getProduct().getName(),
+                        item.getQuantity(),
+                        item.getPrice()
+                ))
+                .toList();
+
+        return new OrderResponseDTO(order.getId(), clientDTO, order.getMoment(), order.getStatus(), itemResponses);
+    }
+
 
 }
