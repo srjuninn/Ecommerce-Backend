@@ -29,12 +29,12 @@ public class ProductService {
 
         ProductEntity newProd = new ProductEntity(productReq.getName(), productReq.getDescription(),productReq.getPrice(),productReq.getImgURL());
         productRepository.save(newProd);
-        return new ProductResponseDTO(newProd.getName(), newProd.getDescription(), newProd.getPrice());
+        return new ProductResponseDTO(newProd.getId(),newProd.getName(), newProd.getDescription(), newProd.getPrice());
     }
 
     public ProductResponseDTO showProductById(UUID id){
         ProductEntity prod = productRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("não existe um produto com esse id: " + id));
-        return new ProductResponseDTO(prod.getName(), prod.getDescription(), prod.getPrice());
+        return new ProductResponseDTO(prod.getId(), prod.getName(), prod.getDescription(), prod.getPrice());
     }
 
     public ProductResponseDTO updateProduct(UUID id, ProductRequestDTO proReq){
@@ -47,7 +47,7 @@ public class ProductService {
 
         ProductEntity updatedProduct = productRepository.save(productEntity);
 
-        return new ProductResponseDTO(updatedProduct.getName(), updatedProduct.getDescription(), updatedProduct.getPrice());
+        return new ProductResponseDTO(updatedProduct.getId() ,updatedProduct.getName(), updatedProduct.getDescription(), updatedProduct.getPrice());
     }
 
     public void deleteProduct(UUID id){

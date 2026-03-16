@@ -23,10 +23,10 @@ public class OrderResponseDTO {
     private List<OrderItemResponseDTO> items;
 
 
-    public OrderResponseDTO(UUID id,UserResponseDTO client, StatusDoPedido status, LocalDateTime moment) {
+    public OrderResponseDTO(UUID id,UserResponseDTO client, LocalDateTime moment, StatusDoPedido status) {
         this.id = id;
         this.client = client;
-        this.status = status;
         this.moment = moment;
+        this.status = status;
     }
 }
