@@ -7,7 +7,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
-
+// adicionando a config do projeto
 @Configuration
 public class SecurityConfig {
     @Bean
