@@ -88,6 +88,27 @@ public class OrderService {
 
         return new OrderResponseDTO(order.getId(), clientDTO, order.getMoment(), order.getStatus(), itemResponses);
     }
+
+    public List<OrderResponseDTO> getAllOrders() {
+        List<OrderEntity> orders = orderRepository.findAll();
+
+        return orders.stream().map(order -> {
+            UserResponseDTO clientDTO = new UserResponseDTO(order.getClient());
+
+            List<OrderItemResponseDTO> itemResponses = order.getItems().stream()
+                    .map(item -> new OrderItemResponseDTO(
+                            item.getProduct().getId(),
+                            item.getProduct().getName(),
+                            item.getQuantity(),
+                            item.getPrice()
+                    ))
+                    .toList();
+
+            return new OrderResponseDTO(order.getId(), clientDTO, order.getMoment(), order.getStatus(), itemResponses);
+        }).toList();
+    }
+
+
     // Atualizar status do pedido
     public OrderResponseDTO updateOrderStatus(UUID id, StatusDoPedido status) {
         OrderEntity order = orderRepository.findById(id)
