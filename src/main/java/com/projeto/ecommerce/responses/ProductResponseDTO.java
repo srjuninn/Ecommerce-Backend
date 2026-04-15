@@ -1,5 +1,6 @@
 package com.projeto.ecommerce.responses;
 
+import com.projeto.ecommerce.entities.ProductEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,5 +20,12 @@ public class ProductResponseDTO {
         this.name = name;
         this.description = description;
         this.price = price;
+    }
+
+    public ProductResponseDTO(ProductEntity product) {
+        this.id = product.getId();
+        this.name = product.getName();
+        this.description = product.getDescription();
+        this.price = product.getPrice();
     }
 }
