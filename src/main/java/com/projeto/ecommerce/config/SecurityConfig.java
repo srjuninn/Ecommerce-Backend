@@ -20,7 +20,10 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/user", "/user/create").permitAll()
-                        .requestMatchers("/user/show/{id}", "/user/show/all", "/user/update/{id}", "/user/delete/{id}").hasRole("ADMIN")
+                        .requestMatchers("/products", "/products/create", "/products/show/{id}", "/products/show/all").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(
+                                "/user/show/{id}", "/user/show/all", "/user/update/{id}", "/user/delete/{id}",
+                                 "/products/update/{id}", "/products/delete/{id}").hasRole("ADMIN")
                         .anyRequest().authenticated()).httpBasic(withDefaults());
         return http.build();
     }
