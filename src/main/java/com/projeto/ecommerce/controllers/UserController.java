@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -28,6 +29,12 @@ public class UserController {
         UserResponseDTO response = userService.getUserById(id);
         return ResponseEntity.ok(response);
     }
+    @GetMapping("/show/all")
+    public ResponseEntity<List<UserResponseDTO>> getAllUsers(){
+        List<UserResponseDTO> userRes = userService.getAllUsers();
+        return ResponseEntity.ok(userRes);
+    }
+
     @PutMapping("/update/{id}")
     public ResponseEntity <UserResponseDTO> updateUserById(@PathVariable UUID id, @RequestBody UserRequestDTO userReq){
         UserResponseDTO updatedUser = userService.updateUserById(id, userReq);
