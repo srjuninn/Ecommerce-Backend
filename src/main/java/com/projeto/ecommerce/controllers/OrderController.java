@@ -9,11 +9,12 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("orders")
 public class OrderController {
     private final OrderService orderService;
 
@@ -35,6 +36,12 @@ public class OrderController {
         return ResponseEntity.ok(orderRes);
     }
 
+    @GetMapping("/show/all")
+    public ResponseEntity<List<OrderResponseDTO>> getAllOrders() {
+        List<OrderResponseDTO> orders = orderService.getAllOrders();
+        return ResponseEntity.ok(orders);
+    }
+
     // Atualizar status do pedido
     @PutMapping("/update/{id}")
     public ResponseEntity<OrderResponseDTO> updateOrderStatus(@PathVariable UUID id,
@@ -48,6 +55,6 @@ public class OrderController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteOrderById(@PathVariable UUID id) {
         orderService.deleteOrderById(id);
-        return ResponseEntity.ok("usuário deletado com sucesso!");
+        return ResponseEntity.ok("pedido deletado com sucesso!");
     }
 }
