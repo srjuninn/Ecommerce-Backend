@@ -8,6 +8,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -30,6 +31,10 @@ public class ProductService {
         ProductEntity newProd = new ProductEntity(productReq.getName(), productReq.getDescription(),productReq.getPrice(),productReq.getImgURL());
         productRepository.save(newProd);
         return new ProductResponseDTO(newProd.getId(),newProd.getName(), newProd.getDescription(), newProd.getPrice());
+    }
+
+    public List<ProductResponseDTO> showAllProducts(){
+        return productRepository.findAll().stream().map(ProductResponseDTO::new).toList();
     }
 
     public ProductResponseDTO showProductById(UUID id){
