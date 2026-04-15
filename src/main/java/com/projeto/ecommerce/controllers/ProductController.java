@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -25,6 +26,10 @@ public class ProductController {
     public ResponseEntity<ProductResponseDTO> showById(@PathVariable UUID id){
         ProductResponseDTO productDTO = productService.showProductById(id);
         return ResponseEntity.ok(productDTO);
+    }
+    @GetMapping("/show/all")
+    public List<ProductResponseDTO> showAllProducts(){
+        return productService.showAllProducts();
     }
     @PutMapping("/update/{id}")
     public ResponseEntity<ProductResponseDTO> updateProduct(@Valid @PathVariable UUID id, @RequestBody ProductRequestDTO prodReq){
