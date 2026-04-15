@@ -3,6 +3,9 @@ package com.projeto.ecommerce.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -16,9 +19,13 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("users", "users/**").permitAll()
-                        .requestMatchers("admin/**").hasRole("ADMIN").
-                        anyRequest().authenticated()).httpBasic(withDefaults());
+                        .requestMatchers("/user", "/user/create").permitAll()
+                        .requestMatchers("/user/show/{id}", "/user/show/all", "/user/update/{id}", "/user/delete/{id}").hasRole("ADMIN")
+                        .anyRequest().authenticated()).httpBasic(withDefaults());
         return http.build();
+    }
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 }
