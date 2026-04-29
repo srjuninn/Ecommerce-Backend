@@ -17,10 +17,12 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "user_table")
 public class UserEntity {
     //  Chave primária
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(columnDefinition = "CHAR(36)")
     private UUID id;
     private String name;
     @Column(unique = true)
