@@ -18,9 +18,11 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
+@Table(name = "order_table")
 public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(columnDefinition = "CHAR(36)")
     private UUID id;
     private LocalDateTime moment;
     private StatusDoPedido status;
