@@ -3,6 +3,7 @@ package com.projeto.ecommerce.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "order_item_table")
 public class OrderItemEntity {
     @EmbeddedId
     private OrderItemPK id = new OrderItemPK();
