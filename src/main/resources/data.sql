@@ -13,7 +13,7 @@ VALUES (UUID(), 'Aline Carvalho', 'aline.carvalho@example.com', '11987654301', '
        (UUID(), 'Rafael Monteiro', 'rafael.monteiro@example.com', '11987654324', 'senha123', 'ROLE_USER');
 
 
-INSERT INTO product_table (id, name, description, price, imgURL)
+INSERT INTO product_table (id, name, description, price, photo)
 VALUES (UUID(), 'Notebook Dell Inspiron', 'Notebook para uso diário com 8GB RAM e SSD 256GB', 3500.00,
         'https://example.com/img/notebook-dell.jpg'),
        (UUID(), 'Smartphone Samsung Galaxy S25', 'Celular com tela AMOLED e câmera tripla', 4200.00,
