@@ -14,5 +14,12 @@ public class ProductRequestDTO {
     @NotNull
     @Positive
     private Double price;
-    private String imgURL;
+    private String photo;
+
+    public ProductRequestDTO(String name, String description, Double price, String photo) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.photo = photo;
+    }
 }

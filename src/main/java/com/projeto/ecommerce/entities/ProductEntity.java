@@ -21,18 +21,18 @@ import java.util.UUID;
 public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(columnDefinition = "CHAR(36)")
+    @Column(length = 36, nullable = false, updatable = false)
     private UUID id;
     private String name;
     private String description;
     private Double price;
-    private String imgURL;
+    private String photo;
 
-    public ProductEntity(String name, String description, Double price, String imgURL) {
+    public ProductEntity(String name, String description, Double price, String photo) {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.imgURL = imgURL;
+        this.photo = photo;
 
     }
 

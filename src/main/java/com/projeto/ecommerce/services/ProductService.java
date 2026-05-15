@@ -28,7 +28,7 @@ public class ProductService {
             throw new DuplicateKeyException("Já existe um produto com esse nome");
         }
 
-        ProductEntity newProd = new ProductEntity(productReq.getName(), productReq.getDescription(),productReq.getPrice(),productReq.getImgURL());
+        ProductEntity newProd = new ProductEntity(productReq.getName(), productReq.getDescription(),productReq.getPrice(),productReq.getPhoto());
         productRepository.save(newProd);
         return new ProductResponseDTO(newProd.getId(),newProd.getName(), newProd.getDescription(), newProd.getPrice());
     }
@@ -48,7 +48,7 @@ public class ProductService {
         productEntity.setName(proReq.getName());
         productEntity.setDescription(proReq.getDescription());
         productEntity.setPrice(proReq.getPrice());
-        productEntity.setImgURL(proReq.getImgURL());
+        productEntity.setPhoto(proReq.getPhoto());
 
         ProductEntity updatedProduct = productRepository.save(productEntity);
 
