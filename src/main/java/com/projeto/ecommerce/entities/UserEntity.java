@@ -18,7 +18,7 @@ public class UserEntity {
     //  Chave primária
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-   // @Column(columnDefinition = "CHAR(36)")
+    @Column(length = 36, nullable = false, updatable = false)
     private UUID id;
     private String name;
     @Column(unique = true)
