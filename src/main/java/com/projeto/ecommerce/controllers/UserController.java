@@ -26,7 +26,7 @@ public class UserController {
     }
 
     @PostMapping(
-            value = "/show/all",
+            value = "/create",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
     )
     public ResponseEntity<UserResponseDTO> createUser(@RequestParam String name, @RequestParam String email,@RequestParam String phone,@RequestParam String password   , @RequestParam MultipartFile photo) throws IOException {
