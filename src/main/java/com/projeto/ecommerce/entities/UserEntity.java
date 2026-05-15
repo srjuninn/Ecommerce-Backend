@@ -4,25 +4,21 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.projeto.ecommerce.enums.RoleEnum;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
 @Entity
-@Table(name = "user_table")
+@Table(name = "user")
 public class UserEntity {
     //  Chave primária
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(columnDefinition = "CHAR(36)")
+    @GeneratedValue(strategy = GenerationType.UUID)
+   // @Column(columnDefinition = "CHAR(36)")
     private UUID id;
     private String name;
     @Column(unique = true)
@@ -33,17 +29,30 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
 //  vai servir pra gerenciar as permissões do usuário
     private RoleEnum roles;
+    private String photo;
     //  Anotation pra falar que é uma relaçao 1 para muitos baseado na chave estrangeira client
     @OneToMany(mappedBy = "client")
 //  Criando uma lista pra mostrar todos os pedidos dos Usuários
     @JsonIgnore
     private List<OrderEntity> orders = new ArrayList<>();
 
-    public UserEntity(String name, String email, String phone, String password, RoleEnum roles) {
+
+    public UserEntity(UUID id, String name, String email, String phone, String password, RoleEnum roles, String photo) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
         this.roles = roles;
+        this.photo = photo;
+    }
+
+    public UserEntity(String name, String email, String phone, String password, RoleEnum roles, String photo) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+        this.roles = roles;
+        this.photo = photo;
     }
 }

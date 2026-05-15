@@ -10,10 +10,9 @@ import lombok.NoArgsConstructor;
 import java.util.UUID;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 public class UserRequestDTO {
-    private UUID id;
+    //    private UUID id;
     @NotBlank
     private String name;
     @NotBlank
@@ -23,12 +22,23 @@ public class UserRequestDTO {
     @NotBlank
     private String password;
     private RoleEnum roles;
+    private String photo;
 
-    public UserRequestDTO(UUID id, String name, String email, String phone, String password){
-        this.id = id;
+//    public UserRequestDTO(UUID id, String name, String email, String phone, String password, RoleEnum roles, String photo) {
+//        this.id = id;
+//        this.name = name;
+//        this.email = email;
+//        this.phone = phone;
+//        this.password = password;
+//        this.roles = roles;
+//        this.photo = photo;
+//    }
+
+    public UserRequestDTO(String name, String email, String phone, String password, String photo) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
+        this.photo = photo;
     }
 }

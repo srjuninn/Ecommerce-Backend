@@ -25,14 +25,14 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public UserResponseDTO createUser(UserRequestDTO userReq) {
+    public UserResponseDTO createUser(UserRequestDTO userReq, String path) {
         if (userReq == null) {
             throw new IllegalArgumentException("os dados inseridos são inválidos");
         }
         if (userRepository.findByEmail(userReq.getEmail()).isPresent()) {
             throw new DuplicateKeyException("já existe um usuário com esse email cadastrado");
         }
-        UserEntity newUser = new UserEntity(userReq.getName(), userReq.getEmail(), userReq.getPhone(), passwordEncoder.encode(userReq.getPassword()), RoleEnum.ROLE_USER);
+        UserEntity newUser = new UserEntity(userReq.getName(), userReq.getEmail(), userReq.getPhone(), passwordEncoder.encode(userReq.getPassword()), RoleEnum.ROLE_USER, userReq.getPhoto());
         userRepository.save(newUser);
         return new UserResponseDTO(newUser.getId(),newUser.getName(), newUser.getEmail(), newUser.getPhone());
     }
